@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:todoey_flutter_from_scratch/models/task.dart';
 
 class AddTaskScreen extends StatelessWidget {
-  const AddTaskScreen({Key? key}) : super(key: key);
+  final Function onAdd;
+
+  const AddTaskScreen({Key? key, required this.onAdd}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -11,6 +14,8 @@ class AddTaskScreen extends StatelessWidget {
         width: 3.0,
       ),
     );
+
+    String newTask = '';
 
     return Container(
       color: const Color(0xff757575),
@@ -43,13 +48,18 @@ class AddTaskScreen extends StatelessWidget {
                 enabledBorder: underlineInputBorder,
                 focusedBorder: underlineInputBorder,
               ),
-              onChanged: (value) {},
+              onChanged: (value) {
+                newTask = value;
+              },
             ),
             const SizedBox(
               height: 20.0,
             ),
             TextButton(
-              onPressed: () {},
+              // onPressed: null,
+              onPressed: () {
+                onAdd(Task(newTask));
+              },
               child: const Text('Add'),
               style: TextButton.styleFrom(
                 backgroundColor: Colors.lightBlueAccent,

@@ -14,9 +14,14 @@ class TaskTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CheckboxListTile(
-      title: Text(task.name),
+      title: Text(
+        task.name,
+        style: TextStyle(
+          decoration: task.completed ? TextDecoration.lineThrough : TextDecoration.none,
+        ),
+      ),
       value: task.completed,
-      onChanged: (value) => onChanged(value),
+      onChanged: (value) => onChanged(),
     );
   }
 }
