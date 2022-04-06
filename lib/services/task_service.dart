@@ -24,6 +24,11 @@ class TaskService extends ChangeNotifier {
     notifyListeners();
   }
 
+  void removeTask(Task task) {
+    _tasks.remove(task);
+    notifyListeners();
+  }
+
   int get count {
     return tasks.length;
   }

@@ -14,15 +14,20 @@ class TaskTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<TaskService>(builder: (context, taskService, child) {
-      return CheckboxListTile(
-        title: Text(
-          task.name,
-          style: TextStyle(
-            decoration: task.completed ? TextDecoration.lineThrough : TextDecoration.none,
+      return GestureDetector(
+        onLongPress: () {
+          taskService.removeTask(task);
+        },
+        child: CheckboxListTile(
+          title: Text(
+            task.name,
+            style: TextStyle(
+              decoration: task.completed ? TextDecoration.lineThrough : TextDecoration.none,
+            ),
           ),
+          value: task.completed,
+          onChanged: (value) => taskService.toggleTaskCompletion(task),
         ),
-        value: task.completed,
-        onChanged: (value) => taskService.toggleTaskCompletion(task),
       );
     });
   }
