@@ -3,4 +3,8 @@ class ToDoItem {
   bool completed = false;
 
   ToDoItem(this.task);
+
+  void toggleComplete() {
+    completed = !completed;
+  }
 }

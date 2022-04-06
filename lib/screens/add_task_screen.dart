@@ -5,7 +5,7 @@ class AddTaskScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var underlineInputBorder = UnderlineInputBorder(
+    var underlineInputBorder = const UnderlineInputBorder(
       borderSide: BorderSide(
         color: Colors.lightBlueAccent,
         width: 3.0,
@@ -13,10 +13,10 @@ class AddTaskScreen extends StatelessWidget {
     );
 
     return Container(
-      color: Color(0xff757575),
+      color: const Color(0xff757575),
       child: Container(
         // color: Colors.white,
-        padding: EdgeInsets.all(20.0),
+        padding: const EdgeInsets.all(20.0),
         decoration: const BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.only(
@@ -27,7 +27,7 @@ class AddTaskScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text(
+            const Text(
               'Add Task',
               textAlign: TextAlign.center,
               style: TextStyle(
@@ -45,12 +45,12 @@ class AddTaskScreen extends StatelessWidget {
               ),
               onChanged: (value) {},
             ),
-            SizedBox(
+            const SizedBox(
               height: 20.0,
             ),
             TextButton(
               onPressed: () {},
-              child: Text('Add'),
+              child: const Text('Add'),
               style: TextButton.styleFrom(
                 backgroundColor: Colors.lightBlueAccent,
                 primary: Colors.white,
