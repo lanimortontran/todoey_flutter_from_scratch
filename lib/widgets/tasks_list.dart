@@ -1,23 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:todoey_flutter_from_scratch/models/task.dart';
+import 'package:provider/provider.dart';
+import 'package:todoey_flutter_from_scratch/services/task_service.dart';
 import 'package:todoey_flutter_from_scratch/widgets/task_tile.dart';
 
 class TasksList extends StatelessWidget {
-  final List<Task> tasks;
-  final Function onChanged;
-
-  const TasksList({Key? key, required this.tasks, required this.onChanged}) : super(key: key);
+  const TasksList({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: tasks.length,
-      itemBuilder: (BuildContext context, int index) {
-        Task task = tasks[index];
-        return TaskTile(
-          task: task,
-          onChanged: () {
-            onChanged(task);
+    return Consumer<TaskService>(
+      builder: (context, taskService, child) {
+        return ListView.builder(
+          itemCount: taskService.tasks.length,
+          itemBuilder: (BuildContext context, int index) {
+            return TaskTile(
+              task: taskService.tasks[index],
+            );
           },
         );
       },

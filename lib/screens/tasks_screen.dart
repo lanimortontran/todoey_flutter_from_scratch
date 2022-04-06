@@ -1,21 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:todoey_flutter_from_scratch/models/task.dart';
+import 'package:provider/provider.dart';
 import 'package:todoey_flutter_from_scratch/screens/add_task_screen.dart';
+import 'package:todoey_flutter_from_scratch/services/task_service.dart';
 import 'package:todoey_flutter_from_scratch/widgets/tasks_list.dart';
 
-class TasksScreen extends StatefulWidget {
+class TasksScreen extends StatelessWidget {
   const TasksScreen({Key? key}) : super(key: key);
-
-  @override
-  State<TasksScreen> createState() => _TasksScreenState();
-}
-
-class _TasksScreenState extends State<TasksScreen> {
-  List<Task> tasks = [
-    Task('Buy milk'),
-    Task('Buy eggs'),
-    Task('Take out trash'),
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -30,14 +20,7 @@ class _TasksScreenState extends State<TasksScreen> {
             builder: (BuildContext context) => SingleChildScrollView(
               child: Container(
                 padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-                child: AddTaskScreen(
-                  onAdd: (Task task) {
-                    setState(() {
-                      tasks.add(task);
-                      Navigator.pop(context);
-                    });
-                  },
-                ),
+                child: const AddTaskScreen(),
               ),
             ),
           );
@@ -77,13 +60,15 @@ class _TasksScreenState extends State<TasksScreen> {
                     fontWeight: FontWeight.w700,
                   ),
                 ),
-                Text(
-                  '${tasks.length} Tasks',
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 18.0,
-                  ),
-                ),
+                Consumer<TaskService>(builder: (context, taskService, child) {
+                  return Text(
+                    '${taskService.count} Tasks',
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 18.0,
+                    ),
+                  );
+                }),
               ],
             ),
           ),
@@ -97,14 +82,7 @@ class _TasksScreenState extends State<TasksScreen> {
                   topRight: Radius.circular(20.0),
                 ),
               ),
-              child: TasksList(
-                tasks: tasks,
-                onChanged: (task) {
-                  setState(() {
-                    task.toggleComplete();
-                  });
-                },
-              ),
+              child: const TasksList(),
             ),
           ),
         ],

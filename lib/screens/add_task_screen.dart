@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:todoey_flutter_from_scratch/models/task.dart';
+import 'package:provider/provider.dart';
+import 'package:todoey_flutter_from_scratch/services/task_service.dart';
 
 class AddTaskScreen extends StatelessWidget {
-  final Function onAdd;
-
-  const AddTaskScreen({Key? key, required this.onAdd}) : super(key: key);
+  const AddTaskScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +19,6 @@ class AddTaskScreen extends StatelessWidget {
     return Container(
       color: const Color(0xff757575),
       child: Container(
-        // color: Colors.white,
         padding: const EdgeInsets.all(20.0),
         decoration: const BoxDecoration(
           color: Colors.white,
@@ -55,17 +53,19 @@ class AddTaskScreen extends StatelessWidget {
             const SizedBox(
               height: 20.0,
             ),
-            TextButton(
-              // onPressed: null,
-              onPressed: () {
-                onAdd(Task(newTask));
-              },
-              child: const Text('Add'),
-              style: TextButton.styleFrom(
-                backgroundColor: Colors.lightBlueAccent,
-                primary: Colors.white,
-              ),
-            ),
+            Consumer<TaskService>(builder: (context, taskService, child) {
+              return TextButton(
+                onPressed: () {
+                  taskService.addTask(newTask);
+                  Navigator.pop(context);
+                },
+                child: const Text('Add'),
+                style: TextButton.styleFrom(
+                  backgroundColor: Colors.lightBlueAccent,
+                  primary: Colors.white,
+                ),
+              );
+            }),
           ],
         ),
       ),

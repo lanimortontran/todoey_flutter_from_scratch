@@ -1,27 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:todoey_flutter_from_scratch/models/task.dart';
+import 'package:todoey_flutter_from_scratch/services/task_service.dart';
 
 class TaskTile extends StatelessWidget {
   final Task task;
-  final Function onChanged;
 
   const TaskTile({
     Key? key,
     required this.task,
-    required this.onChanged,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return CheckboxListTile(
-      title: Text(
-        task.name,
-        style: TextStyle(
-          decoration: task.completed ? TextDecoration.lineThrough : TextDecoration.none,
+    return Consumer<TaskService>(builder: (context, taskService, child) {
+      return CheckboxListTile(
+        title: Text(
+          task.name,
+          style: TextStyle(
+            decoration: task.completed ? TextDecoration.lineThrough : TextDecoration.none,
+          ),
         ),
-      ),
-      value: task.completed,
-      onChanged: (value) => onChanged(),
-    );
+        value: task.completed,
+        onChanged: (value) => taskService.toggleTaskCompletion(task),
+      );
+    });
   }
 }
