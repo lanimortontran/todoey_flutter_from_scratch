@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:todoey_flutter_from_scratch/models/todo_item.dart';
+import 'package:todoey_flutter_from_scratch/models/task.dart';
 import 'package:todoey_flutter_from_scratch/widgets/task_tile.dart';
 
 class TasksList extends StatefulWidget {
@@ -8,23 +8,23 @@ class TasksList extends StatefulWidget {
 }
 
 class _TasksListState extends State<TasksList> {
-  List<ToDoItem> todoItems = [
-    ToDoItem('Buy milk'),
-    ToDoItem('Buy eggs'),
-    ToDoItem('Take out trash'),
+  List<Task> tasks = [
+    Task('Buy milk'),
+    Task('Buy eggs'),
+    Task('Take out trash'),
   ];
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: todoItems.length,
+      itemCount: tasks.length,
       itemBuilder: (BuildContext context, int index) {
-        ToDoItem todoItem = todoItems[index];
+        Task task = tasks[index];
         return TaskTile(
-          todoItem: todoItem,
+          task: task,
           onChanged: (value) {
             setState(() {
-              todoItem.toggleComplete();
+              task.toggleComplete();
             });
           },
         );

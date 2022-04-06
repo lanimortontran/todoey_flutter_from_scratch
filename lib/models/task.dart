@@ -1,8 +1,8 @@
-class ToDoItem {
-  String task;
+class Task {
+  String name;
   bool completed = false;
 
-  ToDoItem(this.task);
+  Task(this.name);
 
   void toggleComplete() {
     completed = !completed;
